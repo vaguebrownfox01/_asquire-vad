@@ -1,8 +1,8 @@
 close all;
-wavfile='j_aa.wav';
+wavfile='4186_Aaa_1_5.wav';
 % fc1=4900;fc2=5100;
-% fc1=5000;fc2=6000;
-fc1=500;fc2=1000;
+fc1=5000;fc2=6000;
+%fc1=500;fc2=1000;
 engwin=0.9;%in sec
 ThPercent=0.2;
 
@@ -32,8 +32,7 @@ end
 Th=ThPercent*max(st_eng);
 temp=sign(st_eng-Th);
 temp1=temp(1:end-1).*temp(2:end);
-count = length(find(temp1<0));
-count / 2
+length(find(temp1<0))
 
 subplot(211);plot([1:length(sig)]/fs,sig);
 subplot(212);plot([1:length(sig)]/fs,f_sig);hold on;
