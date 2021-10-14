@@ -1,5 +1,5 @@
 close;
-audio_files = dir("./Asquire VAD/grouped_unpackd_audio/yee");
+audio_files = dir("./Asquire VAD/grouped_unpackd_audio/cough/");
 audio_files(1:2)=[];
 all_fns = {audio_files(:).name};
 
@@ -11,32 +11,30 @@ for k=1:length(all_fns)
 
     % input
     [sig, fs] = audioread(filename);
-    t = (1:length(sig)) / fs;
+%     t = (1:length(sig)) / fs;
 
     % get spectral power: fft
-    n = length(t);
-    f = fft(sig, n);
-    PSD = f .* conj(f) / n;
-    freq = fs / n * (0:n);
-    L = 1:floor(n / 2);
-
-    PSD = PSD(L);
-    freq = freq(L);
+%     n = length(t);
+%     f = fft(sig, n);
+%     PSD = f .* conj(f) / n;
+%     freq = fs / n * (0:n);
+%     L = 1:floor(n / 2);
+% 
+%     PSD = PSD(L);
+%     freq = freq(L);
 
     % get max freq component
-    [~, i] = max(PSD);
-    fms(k) = freq(i);
+%     [~, i] = max(PSD);
+%     fms(k) = freq(i);
 
     % calc frequency range - r: start, end
-    off = 55;
-    if (fms(k) - off > 0)
-        r.start = fms(k) - off;
-    else
-        r.start = fms(k) + 5;
-    end
-    r.end = fms(k) + off;
+    freq = 200;
+    off = 100;
 
-    pred_count = countStimsL(filename, r, 0.9, 0.2);
+    r.start = freq - off;
+    r.end = freq + off;
+
+    pred_count = countStimsL(filename, r, 0.9, 0.4);
 
     t = split(filename, "_");t = t{length(t)};
     t = split(t, "."); t = t{1};
@@ -58,7 +56,7 @@ accuracy = length(cor) / length(count(4, : )) * 100;
 
 figure;
 subplot(2, 1, 1);
-stem(1: length(fms), fms);
+stem(1: length(fms), ones(1, length(fms)) * freq);
 
 subplot(2, 1, 2);
 stem(1: length(count), count(4, :));

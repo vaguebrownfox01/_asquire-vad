@@ -1,5 +1,6 @@
 *.wav
 __MACOSX/
+*.DS_Store
 
 grouped_unpackd_audio/cough/.DS_Store
 

@@ -1,6 +1,6 @@
 	
 close all;
-filename = "4246_Aaa_1_5.wav";
+filename = "4012_Sss_1_5.wav";
 
 % input
 [sig, fs] = audioread(filename);
